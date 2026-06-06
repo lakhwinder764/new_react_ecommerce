@@ -1,4 +1,4 @@
-const AUTH_API = '/api/auth';
+import { AUTH_API } from './config';
 const STORAGE_KEY = 'ecom_auth';
 
 async function authRequest(path, options = {}) {

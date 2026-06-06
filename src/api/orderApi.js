@@ -1,6 +1,5 @@
 import { getAccessToken } from './authApi';
-
-const ORDERS_API = '/api/orders';
+import { ORDERS_API } from './config';
 
 async function orderRequest(path, options = {}) {
   const token = getAccessToken();

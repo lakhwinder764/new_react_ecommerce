@@ -1,4 +1,4 @@
-const CART_API = '/api/cart';
+import { CART_API } from './config';
 
 let getAuthToken = null;
 

@@ -13,7 +13,7 @@ import Star from './components/Star';
 import AddToCart from './components/AddToCart';
 import { CircularProgress } from '@mui/material';
 
-const API = '/api/products/';
+import { PRODUCTS_API } from './api/config';
 
 const SingleProduct = () => {
   const { getSingleProduct, isSingleLoading, singleProduct } =
@@ -25,7 +25,7 @@ const SingleProduct = () => {
     singleProduct;
 
   useEffect(() => {
-    getSingleProduct(`${API}?id=${id}`);
+    getSingleProduct(`${PRODUCTS_API}?id=${id}`);
   }, [id]);
 
   // if (!isSingleLoading) {
