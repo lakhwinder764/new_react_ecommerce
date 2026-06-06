@@ -13,7 +13,7 @@ import Star from './components/Star';
 import AddToCart from './components/AddToCart';
 import { CircularProgress } from '@mui/material';
 
-const API = 'https://api.pujakaitem.com/api/products';
+const API = '/api/products/';
 
 const SingleProduct = () => {
   const { getSingleProduct, isSingleLoading, singleProduct } =

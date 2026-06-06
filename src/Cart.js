@@ -2,36 +2,23 @@ import styled from 'styled-components';
 import { useCartContext } from './context/cart_context';
 import CartItem from './components/CartItem';
 import { Button } from './styles/Button';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { MdProductionQuantityLimits } from 'react-icons/md';
 import FormatPrice from './Helpers/FormatPrice';
 import { Box, Typography } from '@mui/material';
-import { loadStripe } from '@stripe/stripe-js';
+import { useAuth } from './context/auth_context';
 
 const Cart = () => {
   const { cart, clearCart, total_price, shipping_fee } = useCartContext();
-  const makePayment = async () => {
-    const stripe = await loadStripe(
-      'pk_test_51J2IGXSCNND4eepqe5xU6O2rLHoe3cD2jvwUkFMjdDLBqdaalJpGqCKskaVsWA2Q0qwXJk9IJ5FuB1byVUCLWiZI00gYeMBENB'
-    );
-    const body = {
-      products: cart,
-    };
-    const header = {
-      'Content-Type': 'application/json',
-    };
-    const res = await fetch(
-      'https://men-restapi.onrender.com/api/create-checkout-session',
-      {
-        method: 'POST',
-        headers: header,
-        body: JSON.stringify(body),
-      }
-    );
-    const session = await res.json();
-    stripe.redirectToCheckout({
-      sessionId: session.id,
-    });
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    if (!isAuthenticated) {
+      navigate('/login', { state: { from: '/checkout' } });
+      return;
+    }
+    navigate('/checkout');
   };
   return cart?.length !== 0 ? (
     <Wrapper>
@@ -61,8 +48,8 @@ const Cart = () => {
           </div>
         </div>
         <div className="cart-two-button">
-          <Button className="btn-checkout" onClick={makePayment}>
-            Checkout
+          <Button className="btn-checkout" onClick={handleCheckout}>
+            Proceed to Checkout
           </Button>
         </div>
         <div className="order-total--amount">

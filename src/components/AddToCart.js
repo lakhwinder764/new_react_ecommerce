@@ -56,7 +56,7 @@ const AddToCart = ({ product }) => {
       />
       <NavLink
         to="/cart"
-        onClick={() => addToCart(id, color, amount, product, stock)}
+        onClick={() => addToCart(id, color, amount)}
       >
         <Button className="btn">Add To Cart</Button>
       </NavLink>
